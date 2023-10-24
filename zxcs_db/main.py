@@ -6,7 +6,7 @@ from loguru import logger
 from zxcs_db.app import create_app
 from zxcs_db.config import settings
 from zxcs_db.config.log import init_log
-from zxcs_db.config.options import LogLevelEnum, ServerModeEnum
+from zxcs_db.config.options import ServerModeEnum
 from zxcs_db.db.init_db import init_db
 from zxcs_db.db.redis import init_redis
 from zxcs_db.schemas.resp import ResponseOK
@@ -38,7 +38,6 @@ def start_app():
         host=main_settings.listen,
         port=main_settings.port,
         reload=main_settings.server_mode != ServerModeEnum.prod,
-        debug=main_settings.log_level == LogLevelEnum.debug,
         workers=main_settings.workers,
     )
 

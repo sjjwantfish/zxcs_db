@@ -15,7 +15,7 @@ def get_engine(config: MySQLSettings = settings.main.mysql):
     return create_engine(
         f"mysql+pymysql://{user}:{password}@{host}:{port}/{dbname}",
         pool_pre_ping=True,
-        encoding=encoding,
+        # encoding=encoding,
         pool_recycle=3600,
         pool_use_lifo=True,
     )
