@@ -22,7 +22,7 @@ def create_app(main_settings: MainSettings) -> FastAPI:
     app.add_exception_handler(HTTPException, base_error_handler)
     app.add_exception_handler(ServerException, server_error_handler)
 
-    app.include_router(v1_router, prefix="/x51")
+    app.include_router(v1_router, prefix="/zxcs")
     return app
 
 
@@ -40,5 +40,6 @@ def server_error_handler(_: Request, exc: ServerException) -> JSONResponse:
         {"status": {"msg": exc.msg, "code": exc.code}, "data": exc.data},
         status_code=exc.http_code,
     )
+
 
 # 获取参数
