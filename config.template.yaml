@@ -1,0 +1,19 @@
+main:
+  appname: zxcs_db
+  server_mode: DEVELOPMENT
+  log_dir: logs/
+  log_level: debug
+  listen: 0.0.0.0
+  port: 8080
+  workers: 1
+  mysql:
+    host: 127.0.0.1
+    port: 3306
+    user: root
+    password: '123456'
+    db: zxcs_db
+    encoding: utf-8
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    db: 0
