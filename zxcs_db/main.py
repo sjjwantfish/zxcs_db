@@ -11,6 +11,7 @@ from zxcs_db.db.init_db import init_db
 from zxcs_db.db.redis import init_redis
 from zxcs_db.schemas.resp import ResponseOK
 
+# test git
 # init settings
 main_settings = settings.main
 mysql_settings = settings.main.mysql
