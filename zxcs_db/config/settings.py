@@ -8,10 +8,10 @@ from zxcs_db.config.yamlconfig import get_config
 
 
 class MySQLSettings(BaseSettings):
-    host: str
+    host: str = "127.0.0.1"
     port: int = 3306
-    user: str
-    password: str
+    user: str = "root"
+    password: str = "123456"
     db: str
     encoding: str = "utf-8"
 
