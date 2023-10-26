@@ -5,7 +5,7 @@ CREATE TABLE `book_info`  (
   `title` varchar(255) NOT NULL DEFAULT '' COMMENT '标题',
   `url` varchar(255) NOT NULL DEFAULT '' COMMENT '书下载url',
   `brief` text NOT NULL  COMMENT '概要',
-  `kind_id` varchar(255) NOT NULL DEFAULT '' COMMENT '类id',
+  `kind_id` int NOT NULL DEFAULT 0 COMMENT '类id',
   `bad` int NOT NULL DEFAULT 0 COMMENT '毒草',
   `not_bad` int NOT NULL DEFAULT 0 COMMENT '枯草',
   `normal` int NOT NULL DEFAULT 0 COMMENT '干草',
@@ -15,6 +15,7 @@ CREATE TABLE `book_info`  (
   `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='书信息表';
+-- TODO: 增加外键
 
 
 CREATE TABLE `book_kind` (

@@ -2,7 +2,7 @@ from pydantic import BaseModel, validator
 
 
 class ValidatedModel(BaseModel):
-    @validator("*", pre=True, each_item=True)
+    @validator("*", pre=True)
     def strip_str_space(cls, v):
         if isinstance(v, str):
             v = v.strip()
