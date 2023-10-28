@@ -1,3 +1,5 @@
+from typing import List
+
 from fastapi import APIRouter, Depends, Query
 from sqlalchemy.orm import Session
 
@@ -18,3 +20,15 @@ def get_books(
     if not book:
         return NotFoundError(_id=book_id)
     return ResponseOK(data=book)
+
+
+@book_info_api.get("/titles")
+def get_titles(
+    db: Session = Depends(deps.get_db),
+    kind_ids: List[int] = Query(..., title="kind_ids"),
+):
+    result = {}
+    for kind_id in kind_ids:
+        result[kind_id] = crud.book_info.get_titles_by_kind(db, kind_id)
+
+    return ResponseOK(data=result)
