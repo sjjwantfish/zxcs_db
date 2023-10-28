@@ -24,14 +24,17 @@ class BaseCRUD(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
         """
         self.model = model
 
-    def get(self, db: Session, id: Any) -> Optional[ModelType]:
+    def get(self, db: Session, _id: Any) -> Optional[ModelType]:
         if hasattr(self.model, "status"):
             return (
                 db.query(self.model)
-                .filter(self.model.id == id, self.model.status != BaseStatus.deleted)
+                .filter(
+                    self.model.id == _id,
+                    self.model.status != BaseStatus.deleted,
+                )
                 .first()
             )
-        return db.query(self.model).filter(self.model.id == id).first()
+        return db.query(self.model).filter(self.model.id == _id).first()
 
     def get_last(self, db: Session) -> Optional[ModelType]:
         return db.query(self.model).order_by(self.model.id.desc()).first()
@@ -52,7 +55,11 @@ class BaseCRUD(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
             obj_in_data = obj_in
         else:
             obj_in_data = jsonable_encoder(obj_in)
-        db_obj = self.model(**obj_in_data, create_time=datetime.now(), update_time=datetime.now())  # type: ignore
+        db_obj = self.model(
+            **obj_in_data,
+            create_time=datetime.now(),
+            update_time=datetime.now(),
+        )
         add_model(db, db_obj)
         if auto_commit is True:
             commit(db)
