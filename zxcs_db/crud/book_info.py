@@ -8,16 +8,18 @@ from zxcs_db.schemas.book_info import BookInfoCreate, BookInfoUpdate
 class BookInfoCRUD(BaseCRUD[BookInfoModel, BookInfoCreate, BookInfoUpdate]):
     def get_titles_by_kind(self, db: Session, kind_id: int, limit: int = 8):
         """通过 kind_id 获取 book_info.title"""
-        return (
-            db.query(self.model)  # select `book_info`
-            .filter(self.model.kind_id == kind_id)  # where
-            .with_entities(
-                self.model.title
-            )  # select `book_info`.`title` from `book_info`
+        result = []
+        for entry in (
+            db.query(self.model)
+            .filter(self.model.kind_id == kind_id)
+            .with_entities(self.model.title)
             .order_by(self.model.create_time)
             .limit(limit)
             .all()
-        )
+        ):
+            result.append(entry.title)
+
+        return result
 
 
 book_info = BookInfoCRUD(BookInfoModel)
