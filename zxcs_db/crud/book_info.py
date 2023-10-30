@@ -21,5 +21,18 @@ class BookInfoCRUD(BaseCRUD[BookInfoModel, BookInfoCreate, BookInfoUpdate]):
 
         return result
 
+    def get_book_name_by_author(self, db: Session, author: str):
+        """通过 author 获取 book_info.book_name"""
+        result = []
+        for entry in (
+            db.query(self.model)
+            .filter(self.model.author == author)
+            .with_entities(self.model.book_name)
+            .order_by(self.model.create_time)
+            .all()
+        ):
+            result.append(entry.book_name)
+
+        return result
 
 book_info = BookInfoCRUD(BookInfoModel)

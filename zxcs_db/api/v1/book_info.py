@@ -30,5 +30,17 @@ def get_titles(
     result = {}
     for kind_id in kind_ids:
         result[kind_id] = crud.book_info.get_titles_by_kind(db, kind_id)
+    
+    print(result)
+    return ResponseOK(result)
 
-    return ResponseOK(data=result)
+@book_info_api.get("/book_name")
+def get_book_name(
+    db: Session = Depends(deps.get_db),
+    author = Query(..., title="author"),
+):
+    result = {}
+    result[author] = crud.book_info.get_book_name_by_author(db, author)
+    
+    print(result)
+    return ResponseOK(result)
