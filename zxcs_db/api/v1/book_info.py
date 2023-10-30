@@ -39,8 +39,7 @@ def get_book_name(
     db: Session = Depends(deps.get_db),
     author = Query(..., title="author"),
 ):
-    result = {}
-    result[author] = crud.book_info.get_book_name_by_author(db, author)
+    result = crud.book_info.get_book_name_by_author(db, author)
     
     print(result)
     return ResponseOK(result)

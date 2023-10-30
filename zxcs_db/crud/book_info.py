@@ -26,7 +26,7 @@ class BookInfoCRUD(BaseCRUD[BookInfoModel, BookInfoCreate, BookInfoUpdate]):
         result = []
         for entry in (
             db.query(self.model)
-            .filter(self.model.author == author)
+            .filter(self.model.author.like(f"%{author}%"))
             .with_entities(self.model.book_name)
             .order_by(self.model.create_time)
             .all()
